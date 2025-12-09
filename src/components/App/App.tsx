@@ -1,26 +1,85 @@
 import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import './App.css';
-import HomePage from '@/pages/HomePage/HomePage';
-import LoginPage from '@/pages/LoginPage/LoginPage';
-import RegisterPage from '@/pages/RegisterPage/RegisterPage';
-import TasksList from '../TasksList/TasksList';
-import NotFound from '../NotFound/NotFound';
-import TasksListItem from '../TasksListItem/TasksListItem';
+
+const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
+const RegisterPage = lazy(() => import('@/pages/RegisterPage/RegisterPage'));
+const ContactsPage = lazy(() => import('@/pages/ContactsPage/ContactsPage'));
+const NotFound = lazy(() => import('@/pages/NotFound/NotFound'));
+
 import AppBar from '../AppBar/AppBar';
+import PublicRoute from '../PublicRoute';
+import PrivateRoute from '../PrivateRoute';
+import Modal from '../Modal/Modal';
+import ContactListItem from '../ContactListItem/ContactListItem';
+
+import { refreshUser } from '@/redux/auth/operations';
+import { selectIsRefreshing } from '@/redux/auth/selectors';
 
 function App() {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
-    <>
-      <AppBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/tasks" element={<TasksList />} />
-        <Route path="/tasks/:taskId" element={<TasksListItem />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </>
+    !isRefreshing && (
+      <>
+        <AppBar />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Routes>
+            <Route
+              path="/"
+              element={<PublicRoute component={HomePage} redirectTo="/login" />}
+            />
+
+            <Route
+              path="/login"
+              element={
+                <PublicRoute
+                  component={LoginPage}
+                  redirectTo="/contacts"
+                  restricted
+                />
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute
+                  component={RegisterPage}
+                  redirectTo="/contacts"
+                  restricted
+                />
+              }
+            />
+
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute component={ContactsPage} redirectTo="/login" />
+              }
+            >
+              <Route
+                path=":taskId"
+                element={
+                  <Modal>
+                    <ContactListItem />
+                  </Modal>
+                }
+              />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </>
+    )
   );
 }
 

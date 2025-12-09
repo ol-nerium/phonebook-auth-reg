@@ -1,0 +1,20 @@
+.loginForm {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(127, 104, 74);
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  border-radius: 1rem;
+}
+.loginFormCaption {
+  font-size: 2rem;
+}
+.loginFormInput {
+  width: 100%;
+  font-size: 2rem;
+}
+.loginFormBtn {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}

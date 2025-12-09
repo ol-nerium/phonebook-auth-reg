@@ -1,10 +1,10 @@
-import RegForm from '@/components/RegForm/RegForm';
+import LoginForm from '@/components/LoginForm/LoginForm';
 
 export default function HomePage() {
   return (
     <>
-      <h1>this is login page</h1>
-      <RegForm /> {/* тимчасово */}
+      <h1>Sign in </h1>
+      <LoginForm />
     </>
   );
 }
