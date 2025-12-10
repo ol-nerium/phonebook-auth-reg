@@ -12,12 +12,12 @@ export default function UserMenu() {
     dispatch(logout());
   }
   return (
-    <>
+    <div className={css.userMenu}>
       <p className={css.userTitle}>Welcome, {name}</p>
 
       <button type="button" className={css.navigationButton} onClick={onLogout}>
         Log out
       </button>
-    </>
+    </div>
   );
 }

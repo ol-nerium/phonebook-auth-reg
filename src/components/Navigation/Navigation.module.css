@@ -5,6 +5,10 @@
 
 .navigationLink {
   display: flex;
-  font-size: 2rem;
+  font-size: 3rem;
   color: currentColor;
+}
+
+.active {
+  color: rgb(128, 92, 92);
 }

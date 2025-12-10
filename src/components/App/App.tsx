@@ -18,6 +18,7 @@ import ContactListItem from '../ContactListItem/ContactListItem';
 
 import { refreshUser } from '@/redux/auth/operations';
 import { selectIsRefreshing } from '@/redux/auth/selectors';
+import ContactsForm from '../ContactsForm/ContactsForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
     !isRefreshing && (
       <>
         <AppBar />
+
         <Suspense fallback={<h2>Loading...</h2>}>
           <Routes>
             <Route
@@ -73,6 +75,14 @@ function App() {
                   </Modal>
                 }
               />
+              <Route
+                path="addcontact"
+                element={
+                  <Modal>
+                    <ContactsForm />
+                  </Modal>
+                }
+              ></Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />

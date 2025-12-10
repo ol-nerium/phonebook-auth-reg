@@ -2,6 +2,9 @@ import { useDispatch } from 'react-redux';
 
 import css from './ContactsForm.module.css';
 import { createContact } from '@/redux/contacts/operations';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import { NavLink } from 'react-router-dom';
 
 export default function ContactsForm() {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ export default function ContactsForm() {
       })
     );
   }
+
   return (
     <form action={onAddContact} className={css.addContactForm}>
       <label htmlFor="name" className={css.addContactFormLabel}>

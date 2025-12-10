@@ -1,7 +1,8 @@
 .navigation {
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
   font-size: 3rem;
+  /* margin-left: auto; */
 }
 
 .navLink {

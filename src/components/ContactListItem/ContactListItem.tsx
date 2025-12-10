@@ -23,9 +23,6 @@ export default function ContactListItem() {
   }, []);
 
   function handleChange(e) {
-    // console.log(e.target.name);
-    // console.log(e.target.value)
-
     if (e.target.name === 'name') setName(e.target.value);
     if (e.target.name === 'number') setNumber(e.target.value);
   }

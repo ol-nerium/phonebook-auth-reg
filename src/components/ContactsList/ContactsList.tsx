@@ -8,8 +8,6 @@ import { selectAllContacts } from '@/redux/contacts/selectors';
 import { selectFilter } from '@/redux/filter/selectors';
 
 export default function ContactsList() {
-  const [openModal, setOpenModal] = useState(false);
-
   const dispatch = useDispatch();
 
   const contacts = useSelector(selectAllContacts);
@@ -23,24 +21,11 @@ export default function ContactsList() {
     dispatch(deleteContact(id));
   }
 
-  function onModalOpen(id, name, number) {
-    setOpenModal(true);
-    console.log(id, name, number);
-  }
-
   return (
     <ul className={css.contactList}>
       {filteredContacts.map((i: any) => (
         <li key={i.id} className={css.contactListItem}>
-          <div
-            className={css.contactListTextContent}
-            // onClick={() => onModalOpen(i.id, i.name, i.number)}
-          >
-            {/* <button
-              onClick={onModalOpen}
-              className={css.itemBtnWrapper}
-            ></button> */}
-
+          <div className={css.contactListTextContent}>
             <p className={css.contactListText}>
               Name: <span>{i.name}</span>
             </p>
